@@ -7,7 +7,10 @@ jobs:
   keepalive:
     runs-on: ubuntu-latest
     steps:
-      - name: Wake Codespace
-        run: gh codespace start cuddly-space-orbit-5v6554x69rqc7969
-        env:
-          GH_TOKEN: ${{ secrets.CODESPACE_PAT }}
+      - name: Wake Codespace via API
+        run: |
+          curl -s -X POST \
+            -H "Authorization: token ${{ secrets.CODESPACE_PAT }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/user/codespaces/cuddly-space-orbit-5v6554x69rqc7969/start
