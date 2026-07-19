@@ -2,18 +2,17 @@ name: Codespace Keepalive
 
 on:
   schedule:
-    # 每5天唤醒一次，防止30天不活跃被删除
-    - cron: '0 12 */5 * *'
-  workflow_dispatch:   # 也支持手动触发
+    - cron: "0 12 */5 * *"
+  workflow_dispatch:
+
+permissions:
+  codespaces: write
 
 jobs:
   keepalive:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Codespace
-        run: |
-          # 唤醒或确认 codespace 在线
-          gh codespace start --codespace cuddly-space-orbit-5v6554x69rqc7969 || true
-          gh codespace ssh cuddly-space-orbit-5v6554x69rqc7969 -- "echo 'alive' && date"
+      - name: Wake Codespace
+        run: gh codespace start cuddly-space-orbit-5v6554x69rqc7969
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
