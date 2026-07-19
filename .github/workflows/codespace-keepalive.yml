@@ -2,10 +2,7 @@ name: Codespace Keepalive
 on:
   schedule:
     - cron: "0 12 */5 * *"
-  workflow_dispatch: {}
-permissions:
-  contents: write
-  codespaces: write
+  workflow_dispatch:
 jobs:
   keepalive:
     runs-on: ubuntu-latest
